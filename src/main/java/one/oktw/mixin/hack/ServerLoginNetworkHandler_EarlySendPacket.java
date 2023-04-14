@@ -17,7 +17,6 @@ public class ServerLoginNetworkHandler_EarlySendPacket {
     private void skipKeyPacket(LoginHelloC2SPacket packet, CallbackInfo ci) {
         if (packet.getProfile().isComplete()) return; // Already receive profile form velocity.
 
-        ((ServerLoginNetworkAddon) ((NetworkHandlerExtensions) this).getAddon()).sendPacket(VelocityLib.PLAYER_INFO_CHANNEL, PacketByteBufs.empty());
-        ci.cancel();
+       connection.send(new LoginQueryRequestS2CPacket(ThreadLocalRandom.current().nextInt(), PLAYER_INFO_CHANNEL, PLAYER_INFO_PACKET));
     }
 }
